@@ -43,11 +43,15 @@ class LLMClient:
         url = f"{ollama_host}/api/generate"
         headers = {"Content-Type": "application/json"}
         data = {
-            "model": self.model,
+            "model": self.model,  # Assurez-vous que 'self.model' utilise bien 'mistral' comme modèle
             "prompt": prompt + "\n" + code_snippet,
             "stream": False
         }
         response = requests.post(url, headers=headers, json=data)
+
+        # Débogage: affichez la réponse avant de l'enregistrer
+        print("Ollama Response:", response.json())
+
         return response.json().get("generated_text", "")
 
     def _call_claude(self, prompt, code_snippet):
