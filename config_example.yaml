@@ -1,0 +1,12 @@
+openai_api_key: "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" # your OpenAI API key
+anthropic_api_key: "sk-ant-api03-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" # your Anthropic API key
+
+# Serveur Ollama
+ollama_host: "http://127.0.0.1:11434"
+ollama_model: "llama3.2"
+
+OLLAMA_CONTEXT_LENGTH: 2048
+OLLAMA_MAX_LOADED_MODELS: 0
+OLLAMA_MAX_QUEUE: 512
+OLLAMA_KEEP_ALIVE: "5m0s"
+OLLAMA_NOHISTORY: false

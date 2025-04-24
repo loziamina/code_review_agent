@@ -1,6 +1,17 @@
 import openai
 import requests
 import anthropic
+import yaml
+
+# Charger les configurations depuis config.yaml
+with open("config.yaml", "r") as file:
+    config = yaml.safe_load(file)
+
+# Charger les clés API et les autres paramètres depuis le fichier config.yaml
+openai.api_key = config.get("openai_api_key")
+anthropic_api_key = config.get("anthropic_api_key")
+ollama_host = config.get("ollama_host")
+ollama_model = config.get("ollama_model")
 
 class LLMClient:
     def __init__(self, provider, model, api_key):
@@ -18,15 +29,18 @@ class LLMClient:
 
     def _call_openai(self, prompt, code_snippet):
         openai.api_key = self.api_key
-        response = openai.Completion.create(
-            model=self.model,
-            prompt=prompt + "\n" + code_snippet,
+        response = openai.ChatCompletion.create(
+            model=self.model,  # Par exemple "gpt-3.5-turbo"
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt + "\n" + code_snippet}
+            ],
             max_tokens=150
         )
-        return response.choices[0].text.strip()
+        return response['choices'][0]['message']['content']
 
     def _call_ollama(self, prompt, code_snippet):
-        url = "http://127.0.0.1:11434/api/generate"
+        url = f"{ollama_host}/api/generate"
         headers = {"Content-Type": "application/json"}
         data = {
             "model": self.model,
@@ -43,7 +57,7 @@ class LLMClient:
             "Content-Type": "application/json"
         }
         data = {
-            "model": "claude-1",
+            "model": "claude-1",  # Utilisez le modèle souhaité
             "prompt": prompt + "\n" + code_snippet,
             "max_tokens": 150
         }
