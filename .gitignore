@@ -1,0 +1,32 @@
+# Ignore config files with sensitive data
+reviews/config.yaml
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore environment files
+.env
+
+# Ignore all .log files
+*.log
+
+# Ignore virtual environment folder
+venv/
+.env/
+
+# Ignore the .idea folder (for PyCharm or IntelliJ)
+.idea/
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore all files in the build folder
+build/
+
+# Ignore all files in the dist folder
+dist/
+
+# Ignore any other sensitive files (e.g., API keys)
+*.key
+*.pem
